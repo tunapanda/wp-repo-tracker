@@ -1,0 +1,3 @@
+[submodule "submodule/meta-box"]
+	path = submodule/meta-box
+	url = https://github.com/rilwis/meta-box
