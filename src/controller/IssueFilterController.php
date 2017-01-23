@@ -22,8 +22,21 @@ class IssueFilterController extends Singleton {
 	/**
 	 * Handle the issuelist shortcode.
 	 */
-	public function issuelist($id) {
+	public function issuelist($params) {
+		$issueFilter=IssueFilter::getById($params["id"]);
 
+		if (!$issueFilter)
+			return "Issue filter not found.";
+
+		$issues=$issueFilter->getIssues();
+
+		$params=array(
+			"issues"=>$issues
+		);
+
+		$template=new Template(__DIR__."/../view/issuelist.php");
+
+		return $template->render($params);
 	}
 
 	/**
