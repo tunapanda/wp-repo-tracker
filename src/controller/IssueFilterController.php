@@ -120,8 +120,8 @@ class IssueFilterController extends Singleton {
 	                'desc'=>"Consider only assigned or unassigned issues? Or all issues?",
 	                "options"=>array(
 	                	"all"=>"Consider both assigned and unassigned issues",
-	                	"open"=>"Consider only assigned issues",
-	                	"closed"=>"Consider only unassigned issues"
+	                	"yes"=>"Consider only assigned issues",
+	                	"no"=>"Consider only unassigned issues"
 	                )
 	            ),
 	            array(

@@ -70,4 +70,17 @@ class RepoIssue extends \WpRecord {
 		$issueData=$this->getIssueData();
 		return $issueData["state"];
 	}
+
+	/**
+	 * Get login names of issue assignees.
+	 */
+	public function getAssigneeLogins() {
+		$issueData=$this->getIssueData();
+		$logins=array();
+
+		foreach ($issueData["assignees"] as $assigneeData)
+			$logins[]=$assigneeData["login"];
+
+		return $logins;
+	}
 }

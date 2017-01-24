@@ -6,7 +6,7 @@ namespace repotracker;
  * Wraps the issuefilter post type.
  * TODO:
  * x state
- * - assigned
+ * x assigned
  * - createdLastDays
  * - updatedLastDays
  * - closedLastDays
@@ -62,6 +62,14 @@ class IssueFilter extends PostTypeModel {
 		$state=$this->getMeta("state");
 		if ($state=="open" || $state=="closed")
 			if ($issue->getState()!=$state)
+				return FALSE;
+
+		if ($this->getMeta("assigned")=="yes")
+			if (!sizeof($issue->getAssigneeLogins()))
+				return FALSE;
+
+		if ($this->getMeta("assigned")=="no")
+			if (sizeof($issue->getAssigneeLogins()))
 				return FALSE;
 
 		return TRUE;
