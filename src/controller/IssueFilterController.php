@@ -17,6 +17,7 @@ class IssueFilterController extends Singleton {
 			add_filter("rwmb_meta_boxes",array($this,'rwmbMetaBoxes'));
 
 		add_shortcode("issuelist",array($this,"issuelist"));
+		add_shortcode("issuecount",array($this,"issuecount"));
 	}
 
 	/**
@@ -46,6 +47,21 @@ class IssueFilterController extends Singleton {
 		$template=new Template(__DIR__."/../view/issuelist.php");
 
 		return $template->render($params);
+	}
+
+	/**
+	 * Handle the issuelist shortcode.
+	 */
+	public function issuecount($params) {
+		$issueFilter=IssueFilter::getById($params["id"]);
+
+		if (!$issueFilter)
+			return "Issue filter not found.";
+
+		return 
+			"<span class='repo-tracker-issue-count'>".
+			$issueFilter->getNumIssues().
+			"</span>";
 	}
 
 	/**
@@ -148,6 +164,52 @@ class IssueFilterController extends Singleton {
 	        ),
 		);
 
+		$metaBoxes[]=array(
+	        'title'=>'Views',
+	        'post_types'=>'issuefilter',
+			"priority"=>"low",
+			'context'=>"side",
+	        'fields'=>array(
+	            array(
+	                'type' => 'custom_html',
+	                'id'=>'issueList',
+	                'name' => "Issue List",
+	                'callback'=>array($this,"issuelistShortCodeInfo"),
+	                'desc'=>"Use this shortcode to include the issue list in a post or page."
+	            ),
+
+	            array(
+	                'type' => 'custom_html',
+	                'id'=>'issueList',
+	                'name' => "Issue Count",
+	                'callback'=>array($this,"issuecountShortCodeInfo"),
+	                'desc'=>"Use this shortcode to include the issue count in a post or page."
+	            ),
+	        ),
+		);
+
 		return $metaBoxes;
+	}
+
+	/**
+	 * Info about the issuelist shortcode.
+	 */
+	public function issuelistShortCodeInfo() {
+		global $post;
+
+		$postId=$post->ID;
+
+		return "[issuelist id='".$post->ID."']";
+	}
+
+	/**
+	 * Info about the issuecount shortcode.
+	 */
+	public function issuecountShortCodeInfo() {
+		global $post;
+
+		$postId=$post->ID;
+
+		return "[issuecount id='".$post->ID."']";
 	}
 }

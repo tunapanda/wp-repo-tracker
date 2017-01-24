@@ -4,12 +4,6 @@ namespace repotracker;
 
 /**
  * Wraps the issuefilter post type.
- * TODO:
- * x state
- * x assigned
- * - createdLastDays
- * - updatedLastDays
- * - closedLastDays
  */
 class IssueFilter extends PostTypeModel {
 
@@ -72,11 +66,33 @@ class IssueFilter extends PostTypeModel {
 			if (sizeof($issue->getAssigneeLogins()))
 				return FALSE;
 
+		if (intval($this->getMeta("createdLastDays"))) {
+			$data=$issue->getIssueData();
+			$t=strtotime($data["created_at"]);
+			if ($t<time()-$this->getMeta("createdLastDays")*60*60*24)
+				return FALSE;
+		}
+
+		if (intval($this->getMeta("closedLastDays"))) {
+			$data=$issue->getIssueData();
+			$t=strtotime($data["closed_at"]);
+			if ($t<time()-$this->getMeta("closedLastDays")*60*60*24)
+				return FALSE;
+		}
+
+		if (intval($this->getMeta("updatedLastDays"))) {
+			$data=$issue->getIssueData();
+			$t=strtotime($data["updated_at"]);
+			if ($t<time()-$this->getMeta("updatedLastDays")*60*60*24)
+				return FALSE;
+		}
+
 		return TRUE;
 	}
 
 	/**
 	 * Get the list of issues for this filter.
+	 * The issues will be cached in the local database for an hour.
 	 */
 	public function getIssues() {
 		if (is_null($this->issues)) {
