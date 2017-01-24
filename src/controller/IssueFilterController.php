@@ -18,6 +18,25 @@ class IssueFilterController extends Singleton {
 
 		add_shortcode("issuelist",array($this,"issuelist"));
 		add_shortcode("issuecount",array($this,"issuecount"));
+
+		add_filter("the_content",array($this,"theContent"));
+	}
+
+	/**
+	 * The content.
+	 */
+	public function theContent($content) {
+		global $post;
+
+		if ($post->post_type!="issuefilter")
+			return $content;
+
+		if (!is_single())
+			return $content;
+
+		return
+			"Number of issues: [issuecount id='".$post->ID."']".
+			"[issuelist id='".$post->ID."']";
 	}
 
 	/**
