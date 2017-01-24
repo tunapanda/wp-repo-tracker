@@ -58,13 +58,15 @@ class AutoLoader {
 	 * for the system.
 	 */
 	public function autoloader($fullClassName) {
-		if (!$this->namespace)
-			throw new Exception("Namespace not set");
-
 		if (!$this->sourcePaths)
 			throw new Exception("There are no source paths added");
 
-		$namespacePart=$this->namespace."\\";
+		if ($this->namespace)
+			$namespacePart=$this->namespace."\\";
+
+		else
+			$namespacePart="";
+
 		if (substr($fullClassName,0,strlen($namespacePart))!=$namespacePart)
 			return;
 

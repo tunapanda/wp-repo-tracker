@@ -21,4 +21,8 @@ $autoLoader=new repotracker\AutoLoader("repotracker");
 $autoLoader->addSourceTree(__DIR__."/src");
 $autoLoader->register();
 
+$autoLoader=new repotracker\AutoLoader();
+$autoLoader->addSourcePath(__DIR__."/ext/wprecord");
+$autoLoader->register();
+
 repotracker\RepoTrackerPlugin::instance();

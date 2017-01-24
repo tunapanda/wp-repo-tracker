@@ -88,6 +88,10 @@ class CurlRequest {
 		}
 
 		$curl=curl_init($url);
+		curl_setopt($curl,CURLOPT_HTTPHEADER,array(
+			"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36"
+		));
+
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
 		curl_setopt($curl,CURLOPT_FOLLOWLOCATION,TRUE);
 		$res=curl_exec($curl);
@@ -96,6 +100,9 @@ class CurlRequest {
 			throw new Exception(curl_error($curl));
 
 		$code=curl_getinfo($curl,CURLINFO_HTTP_CODE);
+
+		if ($code!=200)
+			throw new Exception("HTTP status: ".$code.": ".$res);
 
 		switch ($this->resultProcessing) {
 			case CurlRequest::NONE:
@@ -113,9 +120,6 @@ class CurlRequest {
 				$this->result=$decoded;
 				break;
 		}
-
-		if ($code!=200)
-			throw new Exception("HTTP status: ".$code.": ".$res);
 
 		return $this->result;
 	}

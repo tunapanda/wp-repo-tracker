@@ -28,10 +28,19 @@ class IssueFilterController extends Singleton {
 		if (!$issueFilter)
 			return "Issue filter not found.";
 
+		$issueViews=array();
 		$issues=$issueFilter->getIssues();
+		foreach ($issues as $issue) {
+			$issueView=array(
+				"title"=>$issue->getTitle()
+			);
+
+			$issueViews[]=$issueView;
+		}
 
 		$params=array(
-			"issues"=>$issues
+			"issues"=>$issueViews,
+			"numIssues"=>$issueFilter->getNumIssues()
 		);
 
 		$template=new Template(__DIR__."/../view/issuelist.php");
@@ -88,13 +97,6 @@ class IssueFilterController extends Singleton {
 	            ),
 	        ),
 		);
-
-/*		$metaBoxes[]=array(
-	        'title'      => 'Labels',
-	        'post_types' => 'issuefilter',
-	        'fields'     => array(
-	        ),
-		);*/
 
 		$metaBoxes[]=array(
 	        'title'      => 'Filters',
