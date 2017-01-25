@@ -113,6 +113,13 @@ class IssueFilter extends PostTypeModel {
 	}
 
 	/**
+	 * Get title.
+	 */
+	public function getTitle() {
+		return $this->post->post_title;
+	}
+
+	/**
 	 * The post is saved.
 	 */
 	public function onSave() {

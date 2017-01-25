@@ -2,6 +2,8 @@
 
 namespace repotracker;
 
+use \Exception;
+
 /**
  * Handle the management of issue filters.
  */
@@ -20,6 +22,50 @@ class IssueFilterController extends Singleton {
 		add_shortcode("issuecount",array($this,"issuecount"));
 
 		add_filter("the_content",array($this,"theContent"));
+
+		$dasherooAction="repo_issue_stats_dasheroo";
+		add_filter("wp_ajax_$dasherooAction",array($this,"ajaxStats"));
+		add_filter("wp_ajax_nopriv_$dasherooAction",array($this,"ajaxStats"));
+	}
+
+	/**
+	 * Publish information for dasheroo.
+	 */
+	public function ajaxStats() {
+		header('Content-Type: application/json');
+
+		try {
+			if (!isset($_REQUEST["id"]) || !$_REQUEST["id"])
+				throw new Exception("Issue filter id not specified.");
+
+			$issueFilter=IssueFilter::getById($_REQUEST["id"]);
+			if (!$issueFilter)
+				throw new Exception("No issue filter found with this id.");
+
+			$data=array(
+				"issues"=>array(
+					"type"=>"integer",
+					"value"=>$issueFilter->getNumIssues(),
+					"label"=>$issueFilter->getTitle(),
+					"strategy"=>"continuous"
+				)
+			);
+
+			echo json_encode($data,JSON_PRETTY_PRINT);
+			exit;
+		}
+
+		catch (Exception $e) {
+			http_response_code(500);
+
+			$data=array(
+				"error"=>true,
+				"message"=>$e->getMessage()
+			);
+
+			echo json_encode($data,JSON_PRETTY_PRINT);
+			exit;
+		}
 	}
 
 	/**
@@ -218,10 +264,38 @@ class IssueFilterController extends Singleton {
 	                'callback'=>array($this,"issuecountShortCodeInfo"),
 	                'desc'=>"Use this shortcode to include the issue count in a post or page."
 	            ),
+
+	            array(
+	                'type' => 'custom_html',
+	                'id'=>'dasherooLink',
+	                'name' => "Dasheroo",
+	                'callback'=>array($this,"dasherooLinkInfo"),
+	                'desc'=>"Use this link for as a data url to create ".
+	                "<a href='https://www.dasheroo.com/pages/custom-insights' target='_blank'>".
+	                "Dasheroo Custom Insights".
+	                "</a>. Right click on the link above and copy it, then paste it into the ".
+	                "Dasheroo settings form."
+	            ),
 	        ),
 		);
 
 		return $metaBoxes;
+	}
+
+	/**
+	 * Dasheroo link info.
+	 */
+	public function dasherooLinkInfo() {
+		global $post;
+
+		$postId=$post->ID;
+		$url=admin_url(
+			'admin-ajax.php?'.
+			'action=repo_issue_stats_dasheroo&'.
+			'id='.$postId
+		);
+
+		return "<a href='$url'>Data URL</a>";
 	}
 
 	/**
