@@ -40,9 +40,21 @@ class IssueFilterController extends Singleton {
 	}
 
 	/**
+	 * Enqueue style.
+	 */
+	private function enqueueStyle() {
+		wp_enqueue_style(
+			"wp-repo-tracker",
+			REPOTRACKER_URL."/wp-repo-tracker.css"
+		);
+	}
+
+	/**
 	 * Handle the issuelist shortcode.
 	 */
 	public function issuelist($params) {
+		$this->enqueueStyle();
+
 		$issueFilter=IssueFilter::getById($params["id"]);
 
 		if (!$issueFilter)
@@ -69,9 +81,11 @@ class IssueFilterController extends Singleton {
 	}
 
 	/**
-	 * Handle the issuelist shortcode.
+	 * Handle the issuecount shortcode.
 	 */
 	public function issuecount($params) {
+		$this->enqueueStyle();
+
 		$issueFilter=IssueFilter::getById($params["id"]);
 
 		if (!$issueFilter)
