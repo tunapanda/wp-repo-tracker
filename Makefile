@@ -11,3 +11,6 @@ link-deps:
 
 	rm -rf ext/wprecord
 	cd ext; ln -s ../submodule/wprecord wprecord
+
+readme:
+	wp2md convert readme.txt README.md
