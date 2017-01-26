@@ -38,7 +38,6 @@ able to deal with per week.
 
 
 ### List issues in current sprint, and show a burn down chart 
-
 In this example you can create a filter that shows the currently open 
 issues which has the label `current-sprint`. You can put this list of issues
 on an intranet page and the team will have a nice summary of the issues
@@ -48,14 +47,18 @@ hopefully should point to your sprint deadline.
 
 
 ### Unassigned open issues 
-
 If you create a filter to show all the open and unassigned issues, this
 number says something about which issues that no one has yet stepped up
 and accepted responsibility for.
 
 
-### Engage open source hackers 
+### Issues ready for test 
+If you create a filter to show all the open issues with the `resolved`
+label on them, it will give the quality assurance team  a nice overview
+of which issues that are resolved and that are ready to be tested.
 
+
+### Engage open source hackers 
 If you run an open source project, you can create a filter that shows all
 the issues with a `help-wanted` label. You can put this on a web site, and 
 this can serve as an important step so that interested developers know 
