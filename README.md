@@ -28,17 +28,38 @@ label in order to engage with the open source community.
 Here are a few examples of things you can do:
 
 
-### Measure number of closed issues last week 
+### Measure the team's velocity 
 
-Hello.
+You can create a filter that gives you the issues which were closed during
+the last seven days and that has the <i>resolved</i>
+label on them. This gives you a measurement of you teams
+weekly velocity, i.e. how many issues the team is currently
+able to deal with per week.
 
 
 ### List issues in current sprint, and show a burn down chart 
 
-Test.
+In this example you can create a filter that shows the currently open 
+issues which has the label `current-sprint`. You can put this list of issues
+on an intranet page and the team will have a nice summary of the issues
+in the current sprint. If you export the count of these issues to Dasheroo and
+plot a graph for a few days it will give you a nice burndown chart that 
+hopefully should point to your sprint deadline.
+
+
+### Unassigned open issues 
+
+If you create a filter to show all the open and unassigned issues, this
+number says something about which issues that no one has yet stepped up
+and accepted responsibility for.
 
 
 ### Engage open source hackers 
+
+If you run an open source project, you can create a filter that shows all
+the issues with a `help-wanted` label. You can put this on a web site, and 
+this can serve as an important step so that interested developers know 
+what they can help out with.
 
 
 ### Hacking 
