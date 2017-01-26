@@ -25,7 +25,7 @@ last week, plot a graph over the current number of open issues in the current sp
 (a sprint burndown chart), or show all the issues with a "help-wanted" label in
 order to engage with the open source community.
 
-Here are a few examples:
+Here are a few examples of things you can do:
 
 
 ### Sprint Burn Down Chart 
@@ -36,3 +36,9 @@ Hello.
 ### Open Source Crowd Engagement 
 
 Test.
+
+
+### Hacking 
+Some small things to think about if you want to contribute:
+* Don't update the README.md file. Update the readme.txt file, then build the
+  README.md file using `make readme`.
