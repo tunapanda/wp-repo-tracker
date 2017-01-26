@@ -64,11 +64,51 @@ class RepoIssue extends \WpRecord {
 	}
 
 	/**
+	 * Get number of comments
+	 */
+	public function getNumComments() {
+		$issueData=$this->getIssueData();
+		return $issueData["comments"];
+	}
+
+	/**
 	 * Get issue state (open/closed).
 	 */
 	public function getState() {
 		$issueData=$this->getIssueData();
 		return $issueData["state"];
+	}
+
+	/**
+	 * Get opened timstamp.
+	 */
+	public function getOpenedTimestamp() {
+		$issueData=$this->getIssueData();
+		return strtotime($issueData["created_at"]);
+	}
+
+	/**
+	 * Get closed timstamp.
+	 */
+	public function getClosedTimestamp() {
+		$issueData=$this->getIssueData();
+		return strtotime($issueData["closed_at"]);
+	}
+
+	/**
+	 * Get description.
+	 */
+	public function getDescription() {
+		$issueData=$this->getIssueData();
+		return $issueData["body"];
+	}
+
+	/**
+	 * Get url.
+	 */
+	public function getUrl() {
+		$issueData=$this->getIssueData();
+		return $issueData["html_url"];
 	}
 
 	/**
@@ -82,5 +122,12 @@ class RepoIssue extends \WpRecord {
 			$logins[]=$assigneeData["login"];
 
 		return $logins;
+	}
+
+	/**
+	 * Get number of assignees.
+	 */
+	public function getNumAssigned() {
+		return sizeof($this->getAssigneeLogins());
 	}
 }

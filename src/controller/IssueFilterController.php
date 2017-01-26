@@ -110,7 +110,15 @@ class IssueFilterController extends Singleton {
 		$issues=$issueFilter->getIssues();
 		foreach ($issues as $issue) {
 			$issueView=array(
-				"title"=>$issue->getTitle()
+				"title"=>$issue->getTitle(),
+				"description"=>$issue->getDescription(),
+				"url"=>$issue->getUrl(),
+				"labels"=>$issue->getLabels(),
+				"numComments"=>$issue->getNumComments(),
+				"numAssigned"=>$issue->getNumAssigned(),
+				"state"=>$issue->getState(),
+				"opened"=>$issue->getOpenedTimestamp(),
+				"closed"=>$issue->getClosedTimestamp()
 			);
 
 			$issueViews[]=$issueView;

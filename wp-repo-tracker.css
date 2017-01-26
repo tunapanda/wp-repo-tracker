@@ -1,4 +1,58 @@
 .repo-tracker-issue-list {
-	background: #ff0000;
-	border: 1px solid black;
+	font-family: verdana, sans-serif;
+}
+
+.repo-tracker-issue-entry {
+	background: #f8f8f8;
+	border: 1px solid #e5e5e5;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	position: relative;
+}
+
+.repo-tracker-issue-entry .title {
+	font-weight: bold;
+}
+
+.repo-tracker-issue-entry .title a {
+	color: #000000;
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.repo-tracker-issue-entry .title a:hover {
+	color: #8080ff;
+}
+
+.repo-tracker-issue-entry .description {
+	color: #808080;
+}
+
+.repo-tracker-issue-entry .label {
+	color: #ffffff;
+	background: #8080ff;
+	border-radius: 5px;
+	padding: 3px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.repo-tracker-issue-entry .num-comments {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	padding-top: 5px;
+	font-weight: bold;
+}
+
+.repo-tracker-issue-entry .num-comments img {
+	position: absolute;
+	left: 0;
+	top: 0;
 }
