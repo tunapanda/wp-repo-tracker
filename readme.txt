@@ -19,10 +19,10 @@ This plugin can also make data available for other services to use, at this time
 [Dasheroo](http://www.dasheroo.com/) is supported.
 
 You can use this plugin on an intranet or extranet, to show the status of a team
-or project You can use it to show KPI:s such as how many issues that were closed
-last week, plot a graph over the current number of open issues in the current sprint
-(a sprint burndown chart), or show all the issues with a "help-wanted" label in
-order to engage with the open source community.
+or project. For example, you can use it to show KPI:s such as how many issues that 
+were closed last week, plot a graph over the current number of open issues in the 
+current sprint (a sprint burndown chart), or show all the issues with a "help-wanted"
+label in order to engage with the open source community.
 
 Here are a few examples of things you can do:
 
