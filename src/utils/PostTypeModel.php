@@ -2,6 +2,9 @@
 
 namespace repotracker;
 
+use \WP_Query;
+use \Exception;
+
 /**
  * Something that has an underlying post type.
  */
@@ -16,6 +19,13 @@ abstract class PostTypeModel {
 	 */
 	private final function __construct($post) {
 		$this->post=$post;
+	}
+
+	/**
+	 * Get underlying post.
+	 */
+	public function getPost() {
+		return $this->post;
 	}
 
 	/**
@@ -68,6 +78,26 @@ abstract class PostTypeModel {
 			throw new Exception("Expected posttype: ".static::$posttype);
 
 		return new IssueFilter($post);
+	}
+
+	/**
+	 * Get all published posts of this posttype.
+	 */
+	public function getAllPublished() {
+		if (!static::$posttype)
+			throw new Exception("Post type not set in subclass");
+
+		$q=new WP_Query(array(
+			"post_type"=>static::$posttype,
+			"post_status"=>"publish",
+			"posts_per_page"=>-1
+		));
+
+		$all=array();
+		foreach ($q->get_posts() as $post)
+			$all[]=new static($post);
+
+		return $all;
 	}
 
 	/**

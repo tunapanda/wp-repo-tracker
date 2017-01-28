@@ -20,6 +20,8 @@ class RepoTrackerPlugin extends Singleton {
 		//register_deactivation_hook($pluginFileName,array($this,"uninstall"));
 
 		IssueFilter::register();
+
+		add_filter("register_kpis",array($this,"registerKpis"));
 	}
 
 	/**
@@ -43,4 +45,18 @@ class RepoTrackerPlugin extends Singleton {
 		RepoIssue::uninstall();
 	}
 
+	/**
+	 * Register kpis for the wp-data-kpis plugin.
+	 */
+	public function registerKpis($kpis) {
+		$issueFitlers=IssueFilter::getAllPublished();
+
+		foreach ($issueFitlers as $issueFilter) {
+			$kpis[$issueFilter->getPost()->post_name]=array(
+				"title"=>$issueFilter->getPost()->post_title
+			);
+		}
+
+		return $kpis;
+	}
 }
