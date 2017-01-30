@@ -22,6 +22,7 @@ class RepoTrackerPlugin extends Singleton {
 		IssueFilter::register();
 
 		add_filter("register_kpis",array($this,"registerKpis"));
+		add_filter("measure_kpis",array($this,"measureKpis"));
 	}
 
 	/**
@@ -55,6 +56,20 @@ class RepoTrackerPlugin extends Singleton {
 			$kpis[$issueFilter->getPost()->post_name]=array(
 				"title"=>$issueFilter->getPost()->post_title
 			);
+		}
+
+		return $kpis;
+	}
+
+	/**
+	 * Measure the current kpis for the benefit of the wp-data-kpis plugin.
+	 */
+	public function measureKpis($kpis) {
+		$issueFitlers=IssueFilter::getAllPublished();
+
+		foreach ($issueFitlers as $issueFilter) {
+			$kpis[$issueFilter->getPost()->post_name]=
+				$issueFilter->getNumIssues();
 		}
 
 		return $kpis;
