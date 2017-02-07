@@ -83,7 +83,7 @@ abstract class PostTypeModel {
 	/**
 	 * Get all published posts of this posttype.
 	 */
-	public function getAllPublished() {
+	public static function getAllPublished() {
 		if (!static::$posttype)
 			throw new Exception("Post type not set in subclass");
 
