@@ -17,8 +17,6 @@ class RepoTrackerPlugin extends Singleton {
 		register_activation_hook($pluginFileName,array($this,"activate"));
 		register_uninstall_hook($pluginFileName,array($this,"uninstall"));
 
-		//register_deactivation_hook($pluginFileName,array($this,"uninstall"));
-
 		IssueFilter::register();
 
 		add_filter("register_kpis",array($this,"registerKpis"));

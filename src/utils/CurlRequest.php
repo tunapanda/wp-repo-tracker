@@ -92,6 +92,9 @@ class CurlRequest {
 			"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36"
 		));
 
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER,TRUE);
 		curl_setopt($curl,CURLOPT_FOLLOWLOCATION,TRUE);
 		$res=curl_exec($curl);
