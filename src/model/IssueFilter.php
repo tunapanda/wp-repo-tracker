@@ -2,6 +2,8 @@
 
 namespace repotracker;
 
+use \Exception;
+
 /**
  * Wraps the issuefilter post type.
  */
@@ -20,6 +22,7 @@ class IssueFilter extends PostTypeModel {
 
 		$this->issues=NULL;
 		$this->setMeta("lastFetch",0);
+		$this->setMeta("lastFetchError",NULL);
 	}
 
 	/**
@@ -31,7 +34,15 @@ class IssueFilter extends PostTypeModel {
 		$this->issues=array();
 		foreach ($this->getMeta("repositories") as $repoUrl) {
 			$gitHubRepo=new GitHubRepo($repoUrl);
-			$issues=$gitHubRepo->getIssues();
+
+			try {
+				$issues=$gitHubRepo->getIssues();
+			}
+
+			catch (Exception $e) {
+				$this->setMeta("lastFetchError",$e->getMessage());				
+				return;
+			}
 
 			foreach ($issues as $issue) {
 				if ($this->filterIssue($issue)) {
@@ -43,6 +54,13 @@ class IssueFilter extends PostTypeModel {
 		}
 
 		$this->setMeta("lastFetch",time());
+	}
+
+	/**
+	 * Get error for the last fetch, if any.
+	 */
+	public function getLastError() {
+		return $this->getMeta("lastFetchError");
 	}
 
 	/**

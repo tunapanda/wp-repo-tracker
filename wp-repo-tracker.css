@@ -56,3 +56,10 @@
 	left: 0;
 	top: 0;
 }
+
+.repo-tracker-error {
+	background: #f88;
+	border-radius: 5px;
+	border: 1px solid #f00;
+	padding: 5px;
+}

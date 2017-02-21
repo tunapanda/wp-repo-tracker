@@ -126,7 +126,8 @@ class IssueFilterController extends Singleton {
 
 		$params=array(
 			"issues"=>$issueViews,
-			"numIssues"=>$issueFilter->getNumIssues()
+			"numIssues"=>$issueFilter->getNumIssues(),
+			"lastError"=>$issueFilter->getLastError()
 		);
 
 		$template=new Template(__DIR__."/../view/issuelist.php");

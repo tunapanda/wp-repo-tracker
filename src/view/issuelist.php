@@ -1,4 +1,10 @@
 <div class="repo-tracker-issue-list">
+	<?php if ($lastError) { ?>
+		<div class="repo-tracker-error">
+			There was an error fetching issues from GitHub. Error information follows.
+			<pre><?php echo $lastError; ?></pre>
+		</div>
+	<?php } ?>
 	<?php foreach ($issues as $issue) { ?>
 		<div class="repo-tracker-issue-entry">
 			<span class="title">
