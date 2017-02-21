@@ -11,6 +11,7 @@ class GitHubRepo {
 
 	private $repoOrg;
 	private $repoProject;
+	private $accessToken;
 
 	/**
 	 * Construct.
@@ -34,6 +35,13 @@ class GitHubRepo {
 	}
 
 	/**
+	 * Set access token.
+	 */
+	public function setAccessToken($token) {
+		$this->accessToken=$token;
+	}
+
+	/**
 	 * Get issues.
 	 */
 	public function getIssues() {
@@ -43,7 +51,12 @@ class GitHubRepo {
 
 		$curl=new CurlRequest($url);
 		$curl->setParam("state","all");
+
+		if ($this->accessToken)
+			$curl->setParam("access_token",$this->accessToken);
+
 		$curl->setResultProcessing("json");
+		error_log("loading from: ".$curl->getExecUrl());
 		$issueDatas=$curl->exec();
 
 		$issues=array();

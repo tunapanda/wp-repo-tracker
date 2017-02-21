@@ -59,17 +59,9 @@ class CurlRequest {
 	}
 
 	/**
-	 * Run.
+	 * Get the full url that will be used for executing the request.
 	 */
-	public function exec() {
-		if ($this->mockHandler) {
-			$f=$this->mockHandler;
-
-			$this->result=$f($this->params);
-
-			return $this->result;
-		}
-
+	public function getExecUrl() {
 		$url=$this->url;
 
 		if (sizeof($this->params)) {
@@ -87,6 +79,22 @@ class CurlRequest {
 				$url.="&".$joined;
 		}
 
+		return $url;
+	}
+
+	/**
+	 * Run.
+	 */
+	public function exec() {
+		if ($this->mockHandler) {
+			$f=$this->mockHandler;
+
+			$this->result=$f($this->params);
+
+			return $this->result;
+		}
+
+		$url=$this->getExecUrl();
 		$curl=curl_init($url);
 		curl_setopt($curl,CURLOPT_HTTPHEADER,array(
 			"User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36"

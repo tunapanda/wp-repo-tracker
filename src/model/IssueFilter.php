@@ -35,6 +35,9 @@ class IssueFilter extends PostTypeModel {
 		foreach ($this->getMeta("repositories") as $repoUrl) {
 			$gitHubRepo=new GitHubRepo($repoUrl);
 
+			if ($this->getMeta("key"))
+				$gitHubRepo->setAccessToken($this->getMeta("key"));
+
 			try {
 				$issues=$gitHubRepo->getIssues();
 			}

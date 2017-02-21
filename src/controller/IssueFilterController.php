@@ -199,6 +199,12 @@ class IssueFilterController extends Singleton {
 	                'desc'=>"Consider only issues with these labels.<br>".
 	                	"E.g. current-sprint or resolved.",
 	            ),
+	            array(
+	            	'type'=>'text',
+	            	'id'=>'key',
+	            	'name'=>'Key',
+	            	'desc'=>'GitHub API key to use when fetching issues.'
+	            ),
 	        ),
 		);
 
