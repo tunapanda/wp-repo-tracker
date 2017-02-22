@@ -56,7 +56,7 @@ class GitHubRepo {
 			$curl->setParam("access_token",$this->accessToken);
 
 		$curl->setResultProcessing("json");
-		error_log("loading from: ".$curl->getExecUrl());
+		//error_log("loading from: ".$curl->getExecUrl());
 		$issueDatas=$curl->exec();
 
 		$issues=array();

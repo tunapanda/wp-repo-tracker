@@ -134,6 +134,14 @@ class IssueFilter extends PostTypeModel {
 	}
 
 	/**
+	 * Same as getNumIssues, but clears the cache first.
+	 */
+	public function getMeasurement() {
+		$this->clearIssueCache();
+		return $this->getNumIssues();
+	}
+
+	/**
 	 * Get title.
 	 */
 	public function getTitle() {
