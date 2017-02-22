@@ -20,7 +20,6 @@ class RepoTrackerPlugin extends Singleton {
 		IssueFilter::register();
 
 		add_filter("register_kpis",array($this,"registerKpis"));
-		add_filter("measure_kpis",array($this,"measureKpis"));
 	}
 
 	/**
@@ -52,7 +51,8 @@ class RepoTrackerPlugin extends Singleton {
 
 		foreach ($issueFitlers as $issueFilter) {
 			$kpis[$issueFilter->getPost()->post_name]=array(
-				"title"=>$issueFilter->getPost()->post_title
+				"title"=>$issueFilter->getPost()->post_title,
+				"measure_func"=>array($issueFilter,"getNumIssues")
 			);
 		}
 
