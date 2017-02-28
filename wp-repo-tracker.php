@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Repository Tracker
-Plugin URI: https://bitbucket.org/tunapanda/wp-repo-tracker
-GitHub Plugin URI: https://bitbucket.org/tunapanda/wp-repo-tracker
+Plugin URI: https://github.com/tunapanda/wp-repo-tracker
+GitHub Plugin URI: https://github.com/tunapanda/wp-repo-tracker
 Description: Track issues from a code repository, and show them on your WordPress site.
-Version: 0.0.2
+Version: 0.0.3
 */
 
 define('REPOTRACKER_PATH',plugin_dir_path(__FILE__));
