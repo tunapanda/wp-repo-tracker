@@ -127,6 +127,13 @@ class IssueFilter extends PostTypeModel {
 	}
 
 	/**
+	 * Show as?
+	 */
+	public function getShowAs() {
+		return $this->getMeta("show");
+	}
+
+	/**
 	 * Get number of issues.
 	 */
 	public function getNumIssues() {

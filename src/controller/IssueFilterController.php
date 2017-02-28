@@ -130,7 +130,16 @@ class IssueFilterController extends Singleton {
 			"lastError"=>$issueFilter->getLastError()
 		);
 
-		$template=new Template(__DIR__."/../view/issuelist.php");
+		switch ($issueFilter->getShowAs()) {
+			case 'postit':
+				$template=new Template(__DIR__."/../view/issuelist-postit.php");
+				break;
+
+			case 'list':
+			default:
+				$template=new Template(__DIR__."/../view/issuelist.php");
+				break;
+		}
 
 		return $template->render($params);
 	}
@@ -204,6 +213,16 @@ class IssueFilterController extends Singleton {
 	            	'id'=>'key',
 	            	'name'=>'Key',
 	            	'desc'=>'GitHub API key to use when fetching issues.'
+	            ),
+	            array(
+	            	'type'=>'select',
+	            	'id'=>'show',
+	            	'name'=>'Show As',
+	            	'desc'=>'How should the issues be presented on the page?',
+	                "options"=>array(
+	                	"list"=>"List",
+	                	"postit"=>"Sticky Notes",
+	                )
 	            ),
 	        ),
 		);

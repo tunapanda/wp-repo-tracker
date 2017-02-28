@@ -12,6 +12,7 @@ class RepoTrackerPlugin extends Singleton {
 	 */
 	public function __construct() {
 		IssueFilterController::instance();
+		TestController::instance();
 
 		$pluginFileName=$this->getPluginFileName();
 		register_activation_hook($pluginFileName,array($this,"activate"));
